@@ -1,0 +1,5 @@
+{
+"name":"AI 3D Video Studio","short_name":"AI Video Studio","start_url":"./","display":"standalone",
+"background_color":"#0a1020","theme_color":"#10172a",
+"icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

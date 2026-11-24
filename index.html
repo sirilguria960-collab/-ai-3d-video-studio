@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10172a"><meta name="description" content="Mobile-first AI video production planner">
+<link rel="manifest" href="manifest.webmanifest">
+<title>AI 3D Video Studio</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1020;--panel:#121d31;--line:#2a3a56;--text:#f4f6ff;--muted:#a7b4ca;--violet:#9b8cff;--mint:#57dec2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#222b58 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 system-ui,Arial,sans-serif}
+main{max-width:850px;margin:auto;padding:18px 14px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{display:flex;align-items:center;gap:10px;font-weight:800}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--mint));display:grid;place-items:center;color:#10172a;font-size:20px}
+.pill{font-size:11px;color:#8ff1d9;border:1px solid #28645b;background:#102b2b;padding:5px 9px;border-radius:30px}
+.hero{padding:28px 2px 20px}.eyebrow{font-size:11px;letter-spacing:.15em;color:#b7aaff;font-weight:800}.hero h1{font-size:clamp(32px,9vw,48px);line-height:1.08;margin:9px 0}.hero p,.muted{color:var(--muted)}
+.panel{background:linear-gradient(150deg,#16233a,#101827);border:1px solid var(--line);border-radius:18px;padding:17px;margin:13px 0}
+h2{font-size:18px;margin:0 0 4px}.hint{font-size:12px;color:var(--muted);margin:0 0 14px}
+label{display:block;font-weight:700;font-size:13px;margin:14px 0 6px}
+textarea,select{width:100%;border:1px solid var(--line);border-radius:11px;background:#0b1425;color:var(--text);padding:12px;font:inherit}textarea{min-height:112px;resize:vertical}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choices{display:flex;flex-wrap:wrap;gap:8px}.choice{border:1px solid var(--line);background:#0b1425;color:var(--text);border-radius:10px;padding:9px 11px;font-size:13px}.choice.active{border-color:var(--violet);background:#2b2850}
+button.primary{width:100%;border:0;border-radius:12px;padding:14px;margin-top:17px;background:linear-gradient(100deg,var(--violet),var(--mint));color:#07111b;font-weight:900;font-size:15px}
+button.secondary{border:1px solid var(--line);border-radius:10px;background:#1b2940;color:var(--text);padding:10px 12px;font-weight:650}
+.row{display:flex;gap:9px;flex-wrap:wrap}.row>*{flex:1}
+.scene{border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;background:#0c1628}.scene b{display:block}.scene small{color:var(--muted)}
+.notice{font-size:12px;color:#c7d2e7;background:#18243a;border-radius:10px;padding:11px;margin-top:12px}
+#output{display:none}#output.show{display:block}.status{font-size:12px;color:var(--mint);margin-top:9px;overflow-wrap:anywhere}
+footer{text-align:center;color:#7f8ca4;font-size:11px;padding:20px 5px}
+@media(max-width:430px){.grid{grid-template-columns:1fr}.top{align-items:flex-start}}
+</style>
+</head>
+<body><main>
+<header class="top"><div class="brand"><div class="logo">✦</div>AI 3D Video Studio</div><span class="pill">MOBILE EDITION</span></header>
+<section class="hero"><div class="eyebrow">YOUR STORY · YOUR STUDIO</div><h1>Plan your next<br><span style="background:linear-gradient(90deg,#b6aaff,#62e5ca);background-clip:text;color:transparent">AI-generated film.</span></h1><p>Build a production plan for a 20–30 minute 3D, realistic or hybrid video — directly from your Android phone.</p></section>
+<section class="panel">
+<h2>1. Create a video project</h2><p class="hint">Describe the story you want to make.</p>
+<label for="topic">Topic or story idea</label><textarea id="topic" placeholder="Example: A poor village boy faces setbacks, learns new skills and builds a better future for his family."></textarea>
+<div class="grid"><div><label for="duration">Duration</label><select id="duration"><option value="20">20 minutes</option><option value="25">25 minutes</option><option value="30">30 minutes</option></select></div><div><label for="language">Language</label><select id="language"><option>English</option><option>Hindi</option></select></div></div>
+<label>Visual style</label><div class="choices" id="styles"><button class="choice" data-style="3D animation">3D animation</button><button class="choice" data-style="Realistic cinematic">Realistic</button><button class="choice active" data-style="Hybrid">Mix both</button></div>
+<div class="grid"><div><label for="ratio">Format</label><select id="ratio"><option>16:9 YouTube</option><option>9:16 Reels / Shorts</option></select></div><div><label for="tone">Story tone</label><select id="tone"><option>Emotional and inspiring</option><option>Documentary</option><option>Adventure</option><option>Educational</option><option>Comedy</option></select></div></div>
+<button class="primary" id="make">✦ Generate production plan</button>
+<div class="notice">This mobile edition creates a structured scene outline on your device. It does not yet generate AI images, animated clips, voices or a finished MP4. Those require connected AI services and compute.</div>
+</section>
+<section class="panel" id="output"><h2>2. Your production plan</h2><p class="hint" id="summary"></p><div id="scenes"></div><div class="row"><button class="secondary" id="copy">Copy plan</button><button class="secondary" id="download">Download project JSON</button></div><div class="status" id="msg"></div></section>
+<section class="panel"><h2>3. Next production stages</h2><p class="hint">These integrations will turn the plan into a finished film.</p>
+<p>① Full screenplay and scene dialogue</p><p>② Consistent character and location references</p><p>③ AI image and short-video generation</p><p>④ Narration, music and subtitles</p><p>⑤ Automatic editing and MP4 export</p></section>
+<footer>Free-first project planner · Works in a mobile browser · AI generation integrations are not connected yet</footer>
+</main>
+<script>
+let style="Hybrid",lastProject=null;
+document.querySelectorAll("[data-style]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-style]").forEach(x=>x.classList.remove("active"));b.classList.add("active");style=b.dataset.style}));
+const beats=[
+["Opening hook","Introduce a striking moment, question or mystery that makes viewers want to continue."],
+["The world and main character","Establish the setting, the main character and what their ordinary life looks like."],
+["The central problem","Reveal the challenge, need or conflict that drives the story."],
+["First attempt","Show the character trying to solve the problem and encountering resistance."],
+["Setback","Introduce a meaningful failure, surprise or emotional turning point."],
+["Learning and change","Show what the character learns and how their choices begin to change."],
+["Rising stakes","Increase tension with a harder decision, obstacle or new discovery."],
+["Climax","Bring the central conflict to its strongest and most consequential moment."],
+["Resolution","Show the outcome and what has changed for the character."],
+["Closing message","End with a memorable takeaway and a natural audience call to action."]
+];
+function build(){const topic=document.getElementById("topic").value.trim();if(topic.length<8){alert("Please enter a story idea with at least a few words.");return}
+const mins=Number(document.getElementById("duration").value),lang=document.getElementById("language").value,tone=document.getElementById("tone").value,ratio=document.getElementById("ratio").value;
+const count=beats.length,each=Math.round(mins*60/count);
+lastProject={app:"AI 3D Video Studio Mobile",version:"0.2.0",topic,duration_minutes:mins,language:lang,style,tone,format:ratio,created_at:new Date().toISOString(),scenes:beats.map((b,i)=>({scene:i+1,title:b[0],target_seconds:each,visual_direction:`${style} visual treatment. ${b[1]} Story topic: ${topic}`,narration_direction:`Write ${lang} narration for this section in a ${tone.toLowerCase()} tone. Keep continuity with the overall story.`}))};
+document.getElementById("summary").textContent=`${mins} minutes · ${lang} · ${style} · ${ratio} · ${count} story sections`;
+document.getElementById("scenes").innerHTML=lastProject.scenes.map(s=>`<div class="scene"><b>Scene ${s.scene}: ${s.title}</b><small>Target: ${s.target_seconds} sec</small><p>${s.visual_direction}</p><small>${s.narration_direction}</small></div>`).join("");
+document.getElementById("output").classList.add("show");document.getElementById("msg").textContent="Plan created in this browser. Download the JSON to keep a copy.";document.getElementById("output").scrollIntoView({behavior:"smooth"});
+}
+document.getElementById("make").addEventListener("click",build);
+document.getElementById("copy").addEventListener("click",async()=>{if(!lastProject)return;try{await navigator.clipboard.writeText(JSON.stringify(lastProject,null,2));document.getElementById("msg").textContent="Project JSON copied."}catch(e){document.getElementById("msg").textContent="Clipboard unavailable in this browser. Use Download project JSON."}});
+document.getElementById("download").addEventListener("click",()=>{if(!lastProject)return;const blob=new Blob([JSON.stringify(lastProject,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ai-video-project.json";a.click();URL.revokeObjectURL(a.href);});
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script></body></html>
